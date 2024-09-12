@@ -1,0 +1,29 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Snowball", menuName = "Items/Resources/Snowball")]
+
+public class Snowball : Item
+{
+    public Item item;
+    void Start()
+    {
+
+    }
+    public override void Use()
+    {
+        Debug.Log("You have used this item for 5 coins");
+        for (int i = 0; i < 5; i++)
+        {
+            Inventory.instance.Add(item);
+        }
+
+        itemAmount--;
+        Inventory.instance.onItemChangedCallback.Invoke();
+        if (itemAmount <= 0)
+        {
+            RemoveFromInventory();
+            Inventory.instance.DestroyItemInfo();
+
+        }
+    }
+}
